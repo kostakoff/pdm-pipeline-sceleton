@@ -1,31 +1,33 @@
-# pipeline
+# Pipeline
 
-## Immuteble python pipeline
+## Description
 This pipeline using PDM PEP-582 for immutable code behaviour
 
+## Development requirements
+- [X] python3.9 or higher
+- [X] virtualenv
+- [X] PDM package manager
 
-## Development environment
-
-Install  **PDM** to your local machine. \
-We chose **PDM**, because of support [PEP-582](https://peps.python.org/pep-0582/) by default.
-
-You also need  **[pyenv](https://github.com/pyenv/pyenv)**
-
-```toml
-.pdm-python
-  # Example for windows
-path = "C:\\Users\\{USER}\\.pyenv\\versions\\3.9.0\\python3.9.exe"
+## Prepare development environment
+- Clone this repo
+- Optional run docker container with PDM
+```bash
+docker run -v $(pwd):/home/user -w /home/user --user $(id -u):$(id -g) -e HOME=/tmp --rm -it --entrypoint bash docker.io/kostakoff/rocky-base-images:8-python3.9
+```
+- Navigate to pipeline folder `cd pipeline`
+- Enable pep582 **[instructions](https://pdm-project.org/latest/usage/pep582/#__tabbed_1_2)**
+```bash
+eval "$(pdm --pep582)"
+``` 
+- Sync packages 
+```bash
+pdm sync -d
 ```
 
-#### PDM troubleshooting 
-
+## Troubleshooting
 If you will have an issues with **PDM** cli, - you can try  \
-remove `__pypackages__` and run `pdm install -d -v` \
-If after run `pdm install -d` - was created ".venv" folder - rename it to \
-`__pypackages__` and run `pdm sync -d`
-
-### Development preparation
-
-- Clone this repo
-- Enable pep582 `eval "$(pdm --pep582)"` **[instructions](https://pdm-project.org/latest/usage/pep582/#__tabbed_1_2)**
-- Sync packages `pdm sync -d`
+remove `__pypackages__`, optional pdm.lock and run `
+```bash
+pdm install -d -v
+```
+folder `__pypackages__` should be created from scratch
