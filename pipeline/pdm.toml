@@ -1,0 +1,8 @@
+[pypi]
+url = "https://pypi.org/simple/"
+verify_ssl = true
+#ca_certs = '.artifactory-ca.pem'
+
+#[pypi.extra]
+#url = "https://pypi.org/simple/"
+#verify_ssl = true
