@@ -4,7 +4,7 @@ import sys
 import os
 
 # load PEP 582 libraryes
-_PATH = "/__pypackages__/3.8/lib"
+_PATH = "/__pypackages__/3.9/lib"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)) + _PATH)
 
 # load deps
@@ -16,14 +16,12 @@ import uuid
 from src import logger
 from src.utils import CmdExecutor
 
-def init_pipeline():
-
-    logger.info("Python pipeline initialization start")
-    with open('./onboarding.yaml', 'r') as read_yaml: 
-        onboarding = yaml.load(read_yaml, Loader=yaml.FullLoader)
-
-
-    logger.info("Python pipeline initialization done")
+def validate_pipeline():
+    logger.info("Attempting to validate pipeline")
+    with open('./pipeline.yaml', 'r') as read_yaml: 
+        pipeline_settings = yaml.load(read_yaml, Loader=yaml.FullLoader)
+    logger.info(f"test data {pipeline_settings['mock_variable']}")
+    logger.info("Python pipeline validation succeed")
 
 # help
 def print_help():
@@ -39,7 +37,7 @@ def print_help():
 # main 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hu:t:i:o:", ["init", "help", "backup_truststore", "update_truststore", "fetch_certificates"])
+        opts, args = getopt.getopt(argv, "hu:t:i:o:", ["validate", "help"])
         
     except getopt.GetoptError:
         logger.error("Wrong options")
@@ -49,8 +47,8 @@ def main(argv):
         if opt == '--help':
             print_help()
             sys.exit()
-        elif opt == '--init':
-            init_pipeline()
+        elif opt == '--validate':
+            validate_pipeline()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

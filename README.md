@@ -24,10 +24,16 @@ eval "$(pdm --pep582)"
 pdm sync -d
 ```
 
-## Troubleshooting
+## PDM troubleshooting
 If you will have an issues with **PDM** cli, - you can try  \
 remove `__pypackages__`, optional pdm.lock and run `
 ```bash
 pdm install -d -v
 ```
 folder `__pypackages__` should be created from scratch
+
+## Run pipeline
+- run pipeline cli
+```bash
+python3 ./pipeline/pipeline.py --validate
+```
